@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="220" height="220" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <g>
+    <title>Layer 1</title>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_3" y2="200" x2="110" y1="20" x1="110" stroke="#000" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_4" y2="110" x2="200" y1="110" x1="20" stroke="#000" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_9" y2="30" x2="105" y1="20.43478" x1="110" stroke="#000" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_10" y2="30" x2="115" y1="20" x1="110" stroke="#000" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_11" y2="105" x2="190" y1="109.92753" x1="199.85507" stroke="#000" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_12" y2="115" x2="190" y1="110" x1="200" stroke="#000" fill="none"/>
+    <path id="svg_16" d="m56,105l0,10" opacity="undefined" stroke="#000" fill="none"/>
+    <line id="svg_17" y2="114.63768" x2="164" y1="104.85507" x1="164" stroke="#000" fill="none"/>
+    <line id="svg_18" y2="56" x2="114.63768" y1="56" x1="104.2029" stroke="#000" fill="none"/>
+    <line id="svg_19" y2="164" x2="114.63768" y1="164" x1="105" stroke="#000" fill="none"/>
+    <line id="svg_20" y2="83" x2="115.36232" y1="83" x1="104.92754" stroke="#000" fill="none"/>
+    <line id="svg_21" y2="137" x2="115" y1="137" x1="104.56522" stroke="#000" fill="none"/>
+    <path id="svg_22" d="m137,105l0,10" opacity="undefined" stroke="#000" fill="none"/>
+    <path id="svg_23" d="m83,105l0,10" opacity="undefined" stroke="#000" fill="none"/>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_24" y="58.11594" x="117.6087" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">R</text>
+    <text style="cursor: move; white-space: pre;" text-anchor="start" font-family="'Alegreya'" font-size="14" id="svg_25" y="18.62318" x="98.04348" stroke-width="0" stroke="#000" fill="#000000">y</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="14" id="svg_26" y="104.49275" x="200.94203" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">x</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_27" y="101.59771" x="130.77412" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">R/2</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_28" y="84.56521" x="117.96926" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">R/2</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_29" y="139.27536" x="117.46163" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">-R/2</text>
+    <text style="cursor: move; white-space: pre;" text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_30" y="123.15685" x="77.68544" stroke-width="0" stroke="#000" fill="#000000">-R/2</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_31" y="123.29123" x="50.87976" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">-R</text>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_32" y="165.5027" x="118.75508" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">-R</text>
+    <path opacity="0.7" id="svg_57" d="m110.17673,55.7017c0,0 0,54.1614 0,54.1614c0,0 53.98265,0 53.98265,0" stroke="#007fff" fill="none"/>
+    <text text-anchor="start" font-family="'Alegreya'" font-size="10" id="svg_33" y="101.11345" x="161.08871" stroke-width="0" stroke="#000" fill="#000000" style="white-space: pre;">R</text>
+    <path opacity="0.7" id="svg_36" d="m56,110l53.63769,-54" stroke="#007fff" fill="none"/>
+    <path id="svg_41" d="m-72.96232,-68.60289c-1.81159,9.78261 -14.13043,7.24638 -14.34783,7.10145c0.21739,0.14492 6.37681,-12.89855 6.15942,-13.04348c0.21739,0.14492 10,-3.84058 8.18841,5.94202z" opacity="NaN" stroke="#007fff" fill="none"/>
+    <line opacity="0.7" stroke="#007fff" id="svg_44" y2="164" x2="56.01449" y1="109.92753" x1="56.37681" fill="none"/>
+    <line opacity="0.7" id="svg_49" y2="163.55072" x2="110" y1="164" x1="56.01449" stroke="#007fff" fill="none"/>
+    <path id="svg_53" d="m110.18081,163.85745" opacity="NaN" stroke="#007fff" fill="none"/>
+  </g>
+  <path d="M 110.01 55.627 L 110.01 110.275 L 56.4 110.275 L 110.01 55.627 Z" style="stroke: rgb(0, 127, 255); opacity: 0.7; fill-opacity: 0.7; fill: rgb(22, 137, 253);" bx:shape="triangle 56.4 55.627 53.61 54.648 1 0 1@472ac631"/>
+  <rect x="55.708" y="109.237" width="54.302" height="54.994" style="stroke: rgb(0, 127, 255); opacity: 0.7; fill-opacity: 0.7; fill: rgb(22, 137, 253);"/>
+  <path style="fill: rgb(22, 137, 253); fill-opacity: 0.7; stroke: rgb(0, 127, 255); opacity: 0.7;" d="M 110.356 163.578 C 139.752 163.578 163.741 140.05 164.312 110.659"/>
+  <path d="M 110.01 -163.924 L 164.312 -110.66 L 110.01 -110.66 L 110.01 -163.924 Z" style="fill: rgb(22, 137, 253); fill-opacity: 0.7; stroke: rgb(0, 127, 255); opacity: 0.7; paint-order: stroke; stroke-width: 0px; stroke-opacity: 0;" transform="matrix(1, 0, 0, -1, 0, 0)" bx:shape="triangle 110.01 -163.924 54.302 53.264 0 0 1@7ccbc123"/>
+</svg>
