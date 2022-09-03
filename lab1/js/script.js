@@ -83,15 +83,15 @@ form.addEventListener('submit', e => {
         'r': selectedRBtn.value
     }
     const target = 'php/submit.php' + formatParams(params)
-    console.log(target);
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', target);
 
     xhr.onloadend = () => {
         if (xhr.status === 200) {
-            console.log(xhr.response);
             tbody.innerHTML = xhr.response;
+            isHit = document.querySelector('tbody tr:last-child td:last-child span').classList.contains('hit')
+            printDotOnGraph(selectedXRadio.value, yInput.value, isHit)
         } else console.log("status: ", xhr.status)
     };
 

@@ -201,21 +201,6 @@ a:focus {
   transition: color 0.1s ease-out;
 }
 
-.pg404 {
-  padding: 25vh 0;
-}
-
-.pg404__header {
-  text-align: center;
-  font-size: 2.1875rem;
-  margin-bottom: 0.625rem;
-}
-
-.pg404__text {
-  text-align: center;
-  font-size: 1.25rem;
-}
-
 /*Header styles*/
 
 .header {
@@ -233,7 +218,7 @@ a:focus {
 
 .header__title {
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-family: "RussoOne", sans-serif;
 }
 
@@ -426,6 +411,7 @@ a:focus {
 
 .form {
   width: 100%;
+  max-width: 400px;
   align-self: center;
   display: grid;
   grid-template-columns: 20px 1fr;
@@ -450,6 +436,7 @@ a:focus {
 
 .form__x-col {
   font-size: 1.1rem;
+  text-align: center;
 }
 
 .form__x-col input {
@@ -515,7 +502,7 @@ a:focus {
 }
 
 .main__table th {
-  padding: 7px 10px;
+  padding: 0.6rem;
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -548,6 +535,10 @@ a:focus {
 }
 
 @media screen and (max-width: 520px) {
+  html {
+    font-size: 14px;
+  }
+
   .main__left-block {
     flex-direction: column;
   }
@@ -573,10 +564,5 @@ a:focus {
 .footer__title {
   text-transform: uppercase;
   font-family: "RussoOne", sans-serif;
-}
-
-@media screen and (max-width: 520px) {
-  .footer__title {
-    font-size: 1.25rem;
-  }
+  font-size: 1.25rem;
 }
