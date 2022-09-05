@@ -403,6 +403,7 @@ a:focus {
 }
 
 .main__left-block {
+  align-self: flex-start;
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
@@ -529,6 +530,7 @@ a:focus {
   }
 
   .main__left-block {
+    align-self: stretch;
     flex-direction: row;
     justify-content: space-between;
   }
