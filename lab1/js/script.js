@@ -1,6 +1,6 @@
 // Burger menu
 const iconMenu = document.querySelector('.menu__icon');
-iconMenu.addEventListener('click', (event) => {
+iconMenu.addEventListener('click', () => {
     iconMenu.classList.toggle('_active');
     document.querySelector('.header__title').classList.toggle('_active');
     document.querySelector('.menu__body').classList.toggle('_active');
@@ -77,7 +77,7 @@ const form = document.querySelector('.form');
 form.addEventListener('submit', e => {
     e.preventDefault(); // prevent submitting
 
-    params = {
+    let params = {
         'x': selectedXRadio.value,
         'y': yInput.value,
         'r': selectedRBtn.value
@@ -90,7 +90,7 @@ form.addEventListener('submit', e => {
     xhr.onloadend = () => {
         if (xhr.status === 200) {
             tbody.innerHTML = xhr.response;
-            isHit = document.querySelector('tbody tr:last-child td:last-child span').classList.contains('hit')
+            let isHit = document.querySelector('tbody tr:last-child td:last-child span').classList.contains('hit')
             printDotOnGraph(selectedXRadio.value, yInput.value, isHit)
         } else console.log("status: ", xhr.status)
     };
@@ -99,7 +99,7 @@ form.addEventListener('submit', e => {
 })
 
 // Clear all table data
-const clearBtn = document.querySelector('.form__big-btn[type="clear"]');
+const clearBtn = document.querySelector('.form__big-btn[type="reset"]');
 clearBtn.addEventListener("click", e => {
     e.preventDefault();
 

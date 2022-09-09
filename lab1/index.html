@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="header__row">
                     <div class="header__title">
-                        <a href="">Andrew B, P3117</a>
+                        <a href="">Andrew B, P32081</a>
                     </div>
                     <nav class="header__menu menu">
                         <div class="menu__icon">
@@ -43,53 +43,53 @@
                     <div class="main__left-block">
                         <canvas id="graph"></canvas>
                         <form class="form" method="get">
-                            <label for="X" class="form__label">X</label>
+                            <label class="form__label">X</label>
                             <div class="form__row">
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="-3"></p>
+                                    <p><input id="x-m3" name="x" type="radio" value="-3"></p>
                                     <label for="x-m3">-3</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="-2"></p>
+                                    <p><input id="x-m2" name="x" type="radio" value="-2"></p>
                                     <label for="x-m2">-2</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="-1"></p>
+                                    <p><input id="x-m1" name="x" type="radio" value="-1"></p>
                                     <label for="x-m1">-1</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="0"></p>
+                                    <p><input id="x-0" name="x" type="radio" value="0"></p>
                                     <label for="x-0">0</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="1"></p>
+                                    <p><input id="x-1" name="x" type="radio" value="1"></p>
                                     <label for="x-1">1</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="2"></p>
+                                    <p><input id="x-2" name="x" type="radio" value="2"></p>
                                     <label for="x-2">2</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="3"></p>
+                                    <p><input id="x-3" name="x" type="radio" value="3"></p>
                                     <label for="x-3">3</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="4"></p>
+                                    <p><input id="x-4" name="x" type="radio" value="4"></p>
                                     <label for="x-4">4</label>
                                 </div>
                                 <div class="form__x-col">
-                                    <p><input name="x" type="radio" value="5"></p>
+                                    <p><input id="x-5" name="x" type="radio" value="5"></p>
                                     <label for="x-5">5</label>
                                 </div>
                             </div>
 
                             <label for="Y" class="form__label">Y</label>
                             <div class="form__row">
-                                <input required class="form__y-input" name="y" placeholder="Введите значение [-3 ... 3]"
+                                <input id="Y" required class="form__y-input" name="y" placeholder="Введите значение [-3 ... 3]"
                                     type="number" step="any" min="-3" max="3" value="">
                             </div>
 
-                            <label for="R" class="form__label">R</label>
+                            <label class="form__label">R</label>
                             <div class="form__row">
                                 <button class="form__r-btn" name="r" type="button" value="1">1.0</button>
                                 <button class="form__r-btn" type="button" value="1.5">1.5</button>
@@ -100,7 +100,7 @@
 
                             <div class="form__row">
                                 <button class="form__big-btn" disabled type="submit">Отправить</button>
-                                <button class="form__big-btn" type="clear">Очистить</button>
+                                <button class="form__big-btn" type="reset">Очистить</button>
                             </div>
 
                         </form>
@@ -109,12 +109,12 @@
                         <table class="main__table">
                             <thead>
                                 <tr>
-                                    <th>X</td>
-                                    <th>Y</td>
-                                    <th>R</td>
-                                    <th>Запуск</td>
-                                    <th>Работа</td>
-                                    <th>Результат</td>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>R</th>
+                                    <th>Запуск</th>
+                                    <th>Работа</th>
+                                    <th>Результат</th>
                                 </tr>
                             </thead>
                             <tbody>
