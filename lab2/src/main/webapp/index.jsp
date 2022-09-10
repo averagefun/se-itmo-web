@@ -1,3 +1,4 @@
+<%@ page import="java.util.Calendar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en">
 
@@ -99,14 +100,14 @@
             <div class="container">
                 <div class="footer__text">
                     <a class="footer__title" href="#">
-                        &copy 2022 / ИТМО ВТ
+                        &copy <%= Calendar.getInstance().get(Calendar.YEAR) %> / ИТМО ВТ
                     </a>
                 </div>
             </div>
         </footer>
     </div>
 
-    <script type='text/javascript' src="js/script.js"></script>
+    <script type='text/javascript' src="js/script.js"></script>q
     <script type='text/javascript' src="js/graph.js"></script>
 
 </body>
