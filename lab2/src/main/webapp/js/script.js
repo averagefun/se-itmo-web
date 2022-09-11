@@ -9,10 +9,11 @@ iconMenu.addEventListener('click', () => {
 
 let xValid = false, yValid = false, rValid = false;
 
-// X input field validation
+// X buttons validation
 let selectedXBtn;
-const xBtns = document.querySelectorAll('.form__x-btn')
-xBtns.forEach(btn => {
+const xButtons = document.querySelectorAll('.form__x-btn')
+const xInput = document.querySelector('input#X')
+xButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         if (selectedXBtn !== btn) {
             if (selectedXBtn !== undefined) {
@@ -20,6 +21,7 @@ xBtns.forEach(btn => {
             }
             btn.classList.toggle('selected-btn');
             selectedXBtn = btn;
+            xInput.value = selectedXBtn.value;
         }
         xValid = true;
         toggleSubmitBtn();
@@ -43,7 +45,7 @@ yInput.addEventListener('input', () => {
     toggleSubmitBtn();
 })
 
-// R input
+// R input field validation
 const rInput = document.querySelector('input#R')
 rInput.addEventListener('input', () => {
     const validityState = rInput.validity;
@@ -78,59 +80,10 @@ function formatParams(params) {
         .join("&")
 }
 
-const tbody = document.querySelector('.main__table tbody');
-
-// Submit form
-const form = document.querySelector('.form');
-form.addEventListener('submit', e => {
-    e.preventDefault(); // prevent submitting
-
-    let params = {
-        'x': selectedXBtn.value,
-        'y': yInput.value,
-        'r': rInput.value
-    }
-    const target = 'php/submit.php' + formatParams(params)
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', target);
-
-    xhr.onloadend = () => {
-        if (xhr.status === 200) {
-            tbody.innerHTML = xhr.response;
-            const isHit = document.querySelector('tbody tr:last-child td:last-child span').classList.contains('hit')
-            printDotOnGraph(selectedXBtn.value, yInput.value, isHit)
-        } else console.log("status: ", xhr.status)
-    };
-
-    xhr.send();
-})
-
 // Clear all table data
 const clearBtn = document.querySelector('.form__big-btn[type="reset"]');
 clearBtn.addEventListener("click", e => {
     e.preventDefault();
-
-    let xhr = new XMLHttpRequest();
-    xhr.onloadend = () => {
-        if (xhr.status === 200) {
-            tbody.innerHTML = '';
-        } else console.log("status: ", xhr.status)
-    };
-    xhr.open("POST", "php/clear.php");
-    xhr.send();
+    const params = {'clear': true}
+    window.location.replace("/lab2/process" + formatParams(params));
 })
-
-
-// Get previous table data while loading page
-window.onload = () => {
-    let xhr = new XMLHttpRequest();
-    xhr.onloadend = () => {
-        if (xhr.status === 200) {
-            const tbody = document.querySelector('.main__table tbody');
-            tbody.innerHTML = xhr.response;
-        } else console.log("status: ", xhr.status)
-    };
-    xhr.open("GET", "php/init.php");
-    xhr.send();
-}

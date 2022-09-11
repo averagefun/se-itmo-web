@@ -9,8 +9,6 @@ let w = canvas.width, h = canvas.height;
 const hatchWidth = 20 / 2;
 const hatchGap = 56;
 
-let rValue = 'R';
-
 function redrawGraph(r) {
     ctx.clearRect(0, 0, w, h);
 
@@ -90,7 +88,6 @@ function redrawGraph(r) {
         label1 = r / 2
         label2 = r
     }
-    rValue = label2
 
     ctx.font = `800 ${fontSize}px Roboto`;
     ctx.fillText(label1, w / 2 + hatchGap - 3, h / 2 + hatchWidth * 2.8);
@@ -104,12 +101,51 @@ function redrawGraph(r) {
     ctx.fillText('-' + label2, w / 2 + hatchWidth * 2, h / 2 + hatchGap * 2 + 3);
 }
 
-// draw graph with standard label
-redrawGraph(rValue);
-
 function printDotOnGraph(xCenter, yCenter, isHit) {
+    const rValue = rInput.value;
     redrawGraph(rValue);
     ctx.fillStyle = isHit ? '#00ff00' : '#ff0000'
-    let x = w / 2 + xCenter * hatchGap * (2 / rValue) - 3, y = h / 2 - yCenter * hatchGap * (2 / rValue) - 3;
+    const x = w / 2 + xCenter * hatchGap * (2 / rValue) - 3, y = h / 2 - yCenter * hatchGap * (2 / rValue) - 3;
     ctx.fillRect(x, y, 6, 6);
 }
+
+// draw graph onload page
+const lastResult = document.querySelector('tbody tr:last-child');
+if (lastResult) {
+    const row = lastResult.children;
+
+    const x = row[0].innerHTML, y = row[1].innerHTML, isHit = row[5].firstChild.classList.contains('hit');
+    rInput.value = row[2].innerHTML;
+    rValid = true;
+
+    printDotOnGraph(x, y, isHit)
+} else {
+    // draw graph with standard label
+    redrawGraph('R');
+}
+
+canvas.addEventListener('click', (event) => {
+    if (rValid) {
+        // process click on graph
+        const canvasLeft = canvas.offsetLeft + canvas.clientLeft,
+            canvasTop = canvas.offsetTop + canvas.clientTop;
+
+        const x = event.pageX - canvasLeft,
+            y = event.pageY - canvasTop;
+
+
+
+        const xCenter = Math.round((x - w/2) / (hatchGap * (2/rInput.value))*1000)/1000,
+            yCenter = Math.round((h/2 - y) / (hatchGap * (2/rInput.value))*1000)/1000;
+
+        const params = {
+            'x' : xCenter,
+            'y': yCenter,
+            'r': rInput.value
+        }
+
+        window.location.replace("/lab2/process" + formatParams(params));
+    } else {
+        alert("Ошибка: значение R не задано!")
+    }
+})

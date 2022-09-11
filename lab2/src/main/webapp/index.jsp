@@ -1,5 +1,10 @@
-<%@ page import="java.util.Calendar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
+<%@ page import="java.util.Calendar" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:useBean id="results" class="beans.ResultsBean" scope="session" />
+<jsp:useBean id="message" class="java.lang.String" scope="session" />
+
 <html lang="en">
 
 <head>
@@ -39,13 +44,14 @@
 
         <main class="main">
             <div class="container">
-                <h1 class="main__title">Лабораторная работа #2, вариант 2381</h1>
+                <h1 class="main__title">Лабораторная работа #2, вариант 2381 ${message}</h1>
                 <div class="main__row">
                     <div class="main__left-block">
                         <canvas id="graph"></canvas>
-                        <form class="form" method="get">
+                        <form class="form" method="get" action="${pageContext.request.contextPath}/process">
                             <label class="form__label">X</label>
                             <div class="form__row">
+                                <input id="X" type="hidden" name="x" value="">
                                 <button class="form__x-btn" name="r" type="button" value="-5">-5</button>
                                 <button class="form__x-btn" name="r" type="button" value="-4">-4</button>
                                 <button class="form__x-btn" name="r" type="button" value="-3">-3</button>
@@ -59,14 +65,18 @@
 
                             <label for="Y" class="form__label">Y</label>
                             <div class="form__row">
-                                <input id="Y" required class="form__number-input" name="y" placeholder="Введите значение [-5 ... 3]"
-                                       type="number" step="any" min="-5" max="3" value="">
+                                <input id="Y" required class="form__number-input" name="y"
+                                       type="number" step="any" min="-5" max="3"
+                                       placeholder="Введите значение [-5 ... 3]"
+                                       value="">
                             </div>
 
                             <label for="R" class="form__label">R</label>
                             <div class="form__row">
-                                <input id="R" required class="form__number-input" name="y" placeholder="Введите значение [1 ... 4]"
-                                       type="number" min="1" max="4" value="">
+                                <input id="R" required class="form__number-input" name="r"
+                                       type="number" min="1" max="4"
+                                       placeholder="Введите значение [1 ... 4]"
+                                       value="">
                             </div>
 
                             <div class="form__row">
@@ -89,6 +99,16 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="result" items="${results.results}">
+                                <tr>
+                                    <td>${result.x}</td>
+                                    <td>${result.y}</td>
+                                    <td>${result.r}</td>
+                                    <td>${result.currTime}</td>
+                                    <td>${result.execTime} нс</td>
+                                    <td>${result.hitResult ? "<span class='hit'>Попадание</span>" : "<span class='miss'>Промах</span>"}</td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -107,7 +127,7 @@
         </footer>
     </div>
 
-    <script type='text/javascript' src="js/script.js"></script>q
+    <script type='text/javascript' src="js/script.js"></script>
     <script type='text/javascript' src="js/graph.js"></script>
 
 </body>
