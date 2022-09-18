@@ -410,6 +410,10 @@ a:focus {
   gap: 25px;
 }
 
+canvas#graph {
+  max-width: 300px;
+}
+
 .form {
   width: 100%;
   max-width: 400px;

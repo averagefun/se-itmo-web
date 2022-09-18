@@ -1,10 +1,12 @@
-// noinspection JSSuspiciousNameCombination
+// noinspection JSSuspiciousNameCombination,JSUnresolvedVariable
 
 const canvas = document.getElementById("graph"),
     ctx = canvas.getContext('2d');
 
-canvas.height = canvas.width;
-let w = canvas.width, h = canvas.height;
+canvas.width = 300
+canvas.height = 300
+let w = canvas.width,
+    h = canvas.height;
 
 const hatchWidth = 20 / 2;
 const hatchGap = 56;
@@ -132,8 +134,6 @@ canvas.addEventListener('click', (event) => {
 
         const x = event.pageX - canvasLeft,
             y = event.pageY - canvasTop;
-
-
 
         const xCenter = Math.round((x - w/2) / (hatchGap * (2/rInput.value))*1000)/1000,
             yCenter = Math.round((h/2 - y) / (hatchGap * (2/rInput.value))*1000)/1000;
