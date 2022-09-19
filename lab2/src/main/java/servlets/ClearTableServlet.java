@@ -1,26 +1,34 @@
 package servlets;
 
-import beans.ResultsBean;
+import data.ResultList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ClearTableServlet", value = "/clear")
 public class ClearTableServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ResultsBean results = (ResultsBean) req.getSession().getAttribute("results");
-        results.getResults().clear();
-        req.getSession().setAttribute("results", results);
+        HttpSession session = request.getSession();
 
-        req.removeAttribute("clear");
-        req.getServletContext().getRequestDispatcher("/index.jsp").forward(req, res);
+        ResultList resultList;
+        if (session.getAttribute("results") == null) {
+            resultList = new ResultList();
+        } else {
+            resultList = (ResultList) session.getAttribute("results");
+        }
+
+        resultList.clear();
+        session.setAttribute("results", resultList);
+
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     @Override

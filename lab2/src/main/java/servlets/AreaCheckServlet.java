@@ -1,7 +1,7 @@
 package servlets;
 
-import beans.Result;
-import beans.ResultsBean;
+import data.Result;
+import data.ResultList;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,21 +16,32 @@ import java.util.List;
 public class AreaCheckServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            long startTime = System.nanoTime();
-            ResultsBean resultsBean = (ResultsBean) req.getSession().getAttribute("results");
-            if (validateAll(req.getParameter("x"), req.getParameter("y"), req.getParameter("r"))) {
-                addResults(resultsBean, req.getParameter("x"), req.getParameter("y"), req.getParameter("r"), startTime);
+            long startTime = System.nanoTime(); // start time of request
+
+            HttpSession session = request.getSession();
+
+            ResultList resultList;
+            if (session.getAttribute("results") == null) {
+                resultList = new ResultList();
+            } else {
+                resultList = (ResultList) session.getAttribute("results");
+            }
+
+            if (validateAll(request.getParameter("x"), request.getParameter("y"), request.getParameter("r"))) {
+                Result newResult = getNewResult(request.getParameter("x"), request.getParameter("y"), request.getParameter("r"), startTime);
+                resultList.addNewResult(newResult);
             } else {
                 throw new IllegalArgumentException("Неверные значения параметров!");
             }
-            req.getSession().setAttribute("results", resultsBean);
+
+            session.setAttribute("results", resultList);
         } catch (IllegalArgumentException | NullPointerException e) {
-            res.setStatus(400);
-            req.setAttribute("message", "-> Ошибка: " + e.getMessage());
+            response.setStatus(400);
+            request.setAttribute("message", "Ошибка: " + e.getMessage());
         } finally {
-            req.getRequestDispatcher("index.jsp").forward(req, res);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
@@ -40,7 +51,7 @@ public class AreaCheckServlet extends HttpServlet {
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 
-    private void addResults(ResultsBean resultsBean, String x, String y, String r, long startTime) throws IllegalArgumentException {
+    private Result getNewResult(String x, String y, String r, long startTime) throws IllegalArgumentException {
         double xVal = Double.parseDouble(x);
         double yVal = Double.parseDouble(y);
         int rVal = Integer.parseInt(r);
@@ -49,8 +60,7 @@ public class AreaCheckServlet extends HttpServlet {
         String currTime = currentTimeObject.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         String execTime = String.valueOf(System.nanoTime() - startTime);
 
-        Result result = new Result(xVal, yVal, rVal, currTime, execTime, checkHit(xVal, yVal, rVal));
-        resultsBean.getResults().add(result);
+        return new Result(xVal, yVal, rVal, currTime, execTime, checkHit(xVal, yVal, rVal));
     }
 
     private boolean validateX(String xString) {

@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%@ page import="java.util.Calendar" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="results" class="beans.ResultsBean" scope="session" />
-<jsp:useBean id="message" class="java.lang.String" scope="session" />
+<%@ page import="data.Result" %>
+<%@ page import="data.ResultList" %>
+
 
 <html lang="en">
 
@@ -44,7 +44,8 @@
 
         <main class="main">
             <div class="container">
-                <h1 class="main__title">Лабораторная работа #2, вариант 2381 ${message}</h1>
+                <h1 class="main__title">Лабораторная работа #2, вариант 2381 <%=
+                    (request.getAttribute("message") != null) ? "-> " + request.getAttribute("message") : ""%></h1>
                 <div class="main__row">
                     <div class="main__left-block">
                         <canvas id="graph"></canvas>
@@ -99,16 +100,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="result" items="${results.results}">
-                                <tr>
-                                    <td>${result.x}</td>
-                                    <td>${result.y}</td>
-                                    <td>${result.r}</td>
-                                    <td>${result.currTime}</td>
-                                    <td>${result.execTime} нс</td>
-                                    <td>${result.hitResult ? "<span class='hit'>Попадание</span>" : "<span class='miss'>Промах</span>"}</td>
-                                </tr>
-                            </c:forEach>
+                            <%
+                                ResultList resultList;
+                                if (session.getAttribute("results") == null) {
+                                    resultList = new ResultList();
+                                } else {
+                                    resultList = (ResultList) session.getAttribute("results");
+                                }
+
+                                for (Result result : resultList) {
+                            %>
+                            <tr>
+                                <td><%=result.getX()%></td>
+                                <td><%=result.getY()%></td>
+                                <td><%=result.getR()%></td>
+                                <td><%=result.getCurrTime()%></td>
+                                <td><%=result.getExecTime()%> нс</td>
+                                <td><%=result.isHitResult() ? "<span class='hit'>Попадание</span>" : "<span class='miss'>Промах</span>"%></td>
+                            </tr>
+                            <% } %>
                             </tbody>
                         </table>
                     </div>
