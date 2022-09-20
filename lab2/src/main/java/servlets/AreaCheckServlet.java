@@ -33,13 +33,12 @@ public class AreaCheckServlet extends HttpServlet {
                 Result newResult = getNewResult(request.getParameter("x"), request.getParameter("y"), request.getParameter("r"), startTime);
                 resultList.addNewResult(newResult);
             } else {
-                throw new IllegalArgumentException("Неверные значения параметров!");
+                request.setAttribute("message", "Ошибка: неверные значения параметров.");
             }
 
             session.setAttribute("results", resultList);
         } catch (IllegalArgumentException | NullPointerException e) {
             response.setStatus(400);
-            request.setAttribute("message", "Ошибка: " + e.getMessage());
         } finally {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }

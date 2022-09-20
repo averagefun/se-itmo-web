@@ -44,8 +44,9 @@
 
         <main class="main">
             <div class="container">
-                <h1 class="main__title">Лабораторная работа #2, вариант 2381 <%=
-                    (request.getAttribute("message") != null) ? "-> " + request.getAttribute("message") : ""%></h1>
+                <h1 class="main__title">Лабораторная работа #2, вариант 2381 <span class="main__title-message"><%=
+                (request.getAttribute("message") != null) ? "-> " + request.getAttribute("message") : ""%></span></h1>
+
                 <div class="main__row">
                     <div class="main__left-block">
                         <canvas id="graph"></canvas>

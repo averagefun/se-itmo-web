@@ -388,6 +388,10 @@ a:focus {
   font-weight: 600;
 }
 
+.main__title-message {
+  color: #ff0000;
+}
+
 .main__row {
   padding: 30px 0;
   display: flex;

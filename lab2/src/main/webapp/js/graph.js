@@ -146,6 +146,6 @@ canvas.addEventListener('click', (event) => {
 
         window.location.replace("/lab2/process" + formatParams(params));
     } else {
-        alert("Ошибка: значение R не задано!")
+        document.querySelector('.main__title-message').innerHTML = "-> Ошибка: значение R не задано!"
     }
 })
