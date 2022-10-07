@@ -81,6 +81,24 @@
                                        value="">
                             </div>
 
+                            <label for="username" class="form__label">U</label>
+                            <div class="form__row">
+                                <input id="username" required class="form__number-input" name="username"
+                                       type="text"
+                                       placeholder="Введите логин ..."
+                                       value="<%=
+                (request.getParameter("username") != null) ? request.getParameter("username") : ""%>">
+                            </div>
+
+                            <label for="password" class="form__label">P</label>
+                            <div class="form__row">
+                                <input id="password" required class="form__number-input" name="password"
+                                       type="password"
+                                       placeholder="Введите пароль ..."
+                                       value="<%=
+                (request.getParameter("password") != null) ? request.getParameter("password") : ""%>">
+                            </div>
+
                             <div class="form__row">
                                 <button class="form__big-btn" disabled type="submit">Отправить</button>
                                 <button class="form__big-btn" type="reset">Очистить</button>

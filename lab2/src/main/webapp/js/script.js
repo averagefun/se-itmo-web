@@ -84,6 +84,8 @@ function formatParams(params) {
 const clearBtn = document.querySelector('.form__big-btn[type="reset"]');
 clearBtn.addEventListener("click", e => {
     e.preventDefault();
-    const params = {'clear': true}
+    let username = document.querySelector('.form input#username').value
+    let password = document.querySelector('.form input#password').value
+    const params = {'clear': true, 'username': username, 'password': password}
     window.location.replace("/lab2/process" + formatParams(params));
 })

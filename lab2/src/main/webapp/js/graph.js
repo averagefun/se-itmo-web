@@ -138,10 +138,15 @@ canvas.addEventListener('click', (event) => {
         const xCenter = Math.round((x - w/2) / (hatchGap * (2/rInput.value))*1000)/1000,
             yCenter = Math.round((h/2 - y) / (hatchGap * (2/rInput.value))*1000)/1000;
 
+        let username = document.querySelector('.form input#username').value
+        let password = document.querySelector('.form input#password').value
+
         const params = {
             'x' : xCenter,
             'y': yCenter,
-            'r': rInput.value
+            'r': rInput.value,
+            'username': username,
+            'password': password
         }
 
         window.location.replace("/lab2/process" + formatParams(params));
