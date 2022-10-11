@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/templLayout.xhtml">
+        <ui:define name="head">
+            <title>Lab3 - Start page</title>
+        </ui:define>
+
+        <ui:define name="main">
+            <h1 class="main__title">Лабораторная работа #3, вариант 21</h1>
+
+            <div class="main__watch watch">
+                <span class="watch__date"/>
+                <span class="watch__time"/>
+            </div>
+
+            <h:button outcome="/main" style="width: 150px" styleClass="big-btn" value="Начать!"/>
+        </ui:define>
+
+        <ui:define name="js">
+            <h:outputScript name="js/index.js"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
