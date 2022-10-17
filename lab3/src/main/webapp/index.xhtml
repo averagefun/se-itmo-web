@@ -3,27 +3,29 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/templates/templLayout.xhtml">
-        <ui:define name="head">
-            <title>Lab3 - Start page</title>
-        </ui:define>
+<ui:composition template="/templates/templLayout.xhtml">
+    <ui:define name="head">
+        <title>Lab3 - Start page</title>
+    </ui:define>
 
-        <ui:define name="main">
-            <h1 class="main__title">Лабораторная работа #3, вариант 21</h1>
+    <ui:define name="main">
+        <h1 class="main__title">Лабораторная работа #3, вариант 21</h1>
 
-            <div class="main__watch watch">
-                <span class="watch__date"/>
-                <span class="watch__time"/>
-            </div>
+        <h:form styleClass="main__watch">
+            <h:outputText id="my-watch" value="#{watch.time}"/>
+            <p:poll interval="13" update="my-watch" listener="#{watch.updateTime}"/>
+        </h:form>
 
-            <h:button outcome="/main" style="width: 150px" styleClass="big-btn" value="Начать!"/>
-        </ui:define>
+        <h:button outcome="main" style="width: 150px" styleClass="big-btn" value="Начать!"/>
+    </ui:define>
 
-        <ui:define name="js">
-            <h:outputScript name="js/index.js"/>
-        </ui:define>
-    </ui:composition>
-
+    <!-- Or we can use JS to change date and time:
+    <ui:define name="js">
+        <h:outputScript name="js/index.js"/>
+    </ui:define>
+    -->
+</ui:composition>
 </html>

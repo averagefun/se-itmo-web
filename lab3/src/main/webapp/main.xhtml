@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/templLayout.xhtml">
     <ui:define name="head">
@@ -16,11 +17,11 @@
             <div class="main__row">
                 <div class="main__left-block">
                     <canvas id="graph"/>
-                    <form class="form" method="get" action="">
+                    <h:form class="form">
 
                         <label class="form__label">X</label>
                         <div class="form__row">
-                            <input id="X" type="hidden" name="x" value=""/>
+                            <input id="X" type="hidden" name="x" value="#{results.currResult.x}"/>
                             <div class="form__x-col">
                                 <p><input id="x-m5" name="x" type="radio" value="-5"/></p>
                                 <label for="x-m5">-5</label>
@@ -64,12 +65,12 @@
                             <input id="Y" required="required" class="form__number-input" name="y"
                                    type="number" step="any" min="-5" max="5"
                                    placeholder="Введите значение [-5 ... 5]"
-                                   value=""/>
+                                   value="#{results.currResult.y}"/>
                         </div>
 
                         <label class="form__label">R</label>
                         <div class="form__row">
-                            <input id="R" type="hidden" name="x" value=""/>
+                            <input id="R" type="hidden" name="x" value="#{results.currResult.r}"/>
                             <div class="form__r-col">
                                 <p><input id="r-1" name="r" type="radio" value="1"/></p>
                                 <label for="r-1">1.0</label>
@@ -93,27 +94,31 @@
                         </div>
 
                         <div class="form__row">
-                            <button class="big-btn" disabled="disabled" type="submit">Отправить</button>
+                            <p:commandButton styleClass="big-btn" type="submit" value="Отправить"
+                                             action="#{results.addResult}" update="results-table"/>
                             <button class="big-btn" type="reset">Очистить</button>
                         </div>
 
-                    </form>
+                    </h:form>
                 </div>
                 <div class="main__table-block">
-                    <table class="main__table">
-                        <thead>
-                        <tr>
-                            <th>X</th>
-                            <th>Y</th>
-                            <th>R</th>
-                            <th>Запуск</th>
-                            <th>Работа</th>
-                            <th>Результат</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{results.resultList}">
+                        <p:column style="text-align: center;" headerText="X">
+                            <h:outputText value="#{result.x}" />
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="Y">
+                            <h:outputText value="#{result.y}" />
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="R">
+                            <h:outputText value="#{result.r}" />
+                        </p:column>
+
+                        <p:column style="text-align: center;" headerText="Результат">
+                            <h:outputText styleClass="${result.classSuccess}" value="#{result.stringSuccess}" />
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </div>
     </ui:define>

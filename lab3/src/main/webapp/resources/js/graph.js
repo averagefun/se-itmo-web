@@ -118,7 +118,7 @@ const lastResult = document.querySelector('tbody tr:last-child');
 if (lastResult) {
     const row = lastResult.children;
 
-    const x = row[0].innerHTML, y = row[1].innerHTML, isHit = row[5].firstChild.classList.contains('hit');
+    const x = row[0].innerHTML, y = row[1].innerHTML, isHit = row[3].firstChild.classList.contains('hit');
     rInput.value = row[2].innerHTML;
     rValid = true;
 

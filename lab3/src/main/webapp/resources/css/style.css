@@ -502,14 +502,10 @@ canvas#graph {
   margin: 5px 0;
 }
 
-.watch {
+.main__watch {
   margin: 15px 0;
   font-size: 24px;
   font-family: "RussoOne", sans-serif;
-}
-
-.watch__date {
-
 }
 
 .main__table-block {
