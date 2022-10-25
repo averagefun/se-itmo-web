@@ -14,9 +14,9 @@
     <ui:define name="main">
         <h1 class="main__title">Лабораторная работа #3, вариант 21</h1>
 
-        <h:form styleClass="main__watch">
-            <h:outputText id="my-watch" value="#{watch.time}"/>
-            <p:poll interval="13" update="my-watch" listener="#{watch.updateTime}"/>
+        <h:form styleClass="main__datetime">
+            <h:outputText id="my-clock" value="#{timeKeeper.time}"/>
+            <p:poll interval="13" update="my-clock" listener="#{timeKeeper.updateTime}"/>
         </h:form>
 
         <h:button outcome="main" style="width: 150px" styleClass="big-btn" value="Начать!"/>

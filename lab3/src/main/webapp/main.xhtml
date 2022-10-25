@@ -17,11 +17,11 @@
             <div class="main__row">
                 <div class="main__left-block">
                     <canvas id="graph"/>
-                    <h:form class="form">
 
+                    <h:form class="form">
                         <label class="form__label">X</label>
                         <div class="form__row">
-                            <input id="X" type="hidden" name="x" value="#{results.currResult.x}"/>
+                            <p:inputText id="X" type="hidden" name="x" value="#{results.currResult.x}"/>
                             <div class="form__x-col">
                                 <p><input id="x-m5" name="x" type="radio" value="-5"/></p>
                                 <label for="x-m5">-5</label>
@@ -62,7 +62,7 @@
 
                         <label for="Y" class="form__label">Y</label>
                         <div class="form__row">
-                            <input id="Y" required="required" class="form__number-input" name="y"
+                            <p:inputText id="Y" required="required" class="form__number-input" name="y"
                                    type="number" step="any" min="-5" max="5"
                                    placeholder="Введите значение [-5 ... 5]"
                                    value="#{results.currResult.y}"/>
@@ -70,7 +70,7 @@
 
                         <label class="form__label">R</label>
                         <div class="form__row">
-                            <input id="R" type="hidden" name="x" value="#{results.currResult.r}"/>
+                            <p:inputText id="R" type="hidden" name="x" value="#{results.currResult.r}"/>
                             <div class="form__r-col">
                                 <p><input id="r-1" name="r" type="radio" value="1"/></p>
                                 <label for="r-1">1.0</label>

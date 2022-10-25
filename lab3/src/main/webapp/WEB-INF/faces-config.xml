@@ -5,7 +5,7 @@
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <managed-bean>
-        <managed-bean-name>watch</managed-bean-name>
+        <managed-bean-name>timeKeeper</managed-bean-name>
         <managed-bean-class>beans.TimeKeeper</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
@@ -14,6 +14,12 @@
         <managed-bean-name>results</managed-bean-name>
         <managed-bean-class>beans.ResultBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>resultDao</managed-bean-name>
+        <managed-bean-class>database.ResultDaoImpl</managed-bean-class>
+        <managed-bean-scope>none</managed-bean-scope>
     </managed-bean>
 
     <navigation-rule>

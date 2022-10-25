@@ -502,7 +502,7 @@ canvas#graph {
   margin: 5px 0;
 }
 
-.main__watch {
+.main__datetime {
   margin: 15px 0;
   font-size: 24px;
   font-family: "RussoOne", sans-serif;
@@ -513,22 +513,23 @@ canvas#graph {
   padding: 20px 0;
 }
 
-.main__table {
+table.main__table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: auto;
 }
 
-.main__table tr {
+table.main__table tr {
   box-shadow: 0 0 1px 0 #bbb;
 }
 
-.main__table th {
+table.main__table th {
   padding: 0.6rem;
   font-size: 1.2rem;
   font-weight: 500;
 }
 
-.main__table td {
+table.main__table td {
   padding: 5px;
   text-align: center;
   font-size: 1.1rem;
