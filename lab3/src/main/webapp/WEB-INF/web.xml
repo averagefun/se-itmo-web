@@ -15,8 +15,17 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
     <context-param>
         <param-name>primefaces.THEME</param-name>
+        <param-value>none</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.skin</param-name>
         <param-value>none</param-value>
     </context-param>
 </web-app>

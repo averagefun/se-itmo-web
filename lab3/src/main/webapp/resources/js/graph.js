@@ -105,27 +105,14 @@ function redrawGraph(r) {
     ctx.fillText('-' + label2, w / 2 + hatchWidth * 2, h / 2 + hatchGap * 2 + 3);
 }
 
+redrawGraph('R');
+
 function printDotOnGraph(xCenter, yCenter, isHit) {
     const rValue = rInput.value;
     redrawGraph(rValue);
     ctx.fillStyle = isHit ? '#00ff00' : '#ff0000'
     const x = w / 2 + xCenter * hatchGap * (2 / rValue) - 3, y = h / 2 - yCenter * hatchGap * (2 / rValue) - 3;
     ctx.fillRect(x, y, 6, 6);
-}
-
-// draw graph onload page
-const lastResult = document.querySelector('tbody tr:last-child');
-if (lastResult) {
-    const row = lastResult.children;
-
-    const x = row[0].innerHTML, y = row[1].innerHTML, isHit = row[3].firstChild.classList.contains('hit');
-    rInput.value = row[2].innerHTML;
-    rValid = true;
-
-    printDotOnGraph(x, y, isHit)
-} else {
-    // draw graph with standard label
-    redrawGraph('R');
 }
 
 canvas.addEventListener('click', (event) => {
@@ -140,14 +127,20 @@ canvas.addEventListener('click', (event) => {
         const xCenter = Math.round((x - w/2) / (hatchGap * (2/rInput.value))*1000)/1000,
             yCenter = Math.round((h/2 - y) / (hatchGap * (2/rInput.value))*1000)/1000;
 
-        const params = {
-            'x' : xCenter,
-            'y': yCenter,
-            'r': rInput.value
-        }
+        const oldX = xInput.value, oldY = yInput.value;
+        yInput.value = yCenter;
+        xInput.value = xCenter;
 
-        window.location.replace("/lab3/process" + formatParams(params));
+        submitBtn.onclick(undefined);
+
+        xInput.value = oldX;
+        yInput.value = oldY;
+
+        setTimeout(() => {
+            const lastResult = document.querySelector('.main__table tbody tr:last-child');
+            printDotOnGraph(xCenter, yCenter, lastResult.children[3].firstChild.classList.contains('hit'))
+        }, 100);
     } else {
-        document.querySelector('.main__title-message').innerHTML = "-> Ошибка: значение R не задано!"
+        messages.innerText = "Ошибка: значение R не задано!";
     }
 })

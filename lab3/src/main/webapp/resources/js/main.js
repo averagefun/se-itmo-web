@@ -1,8 +1,11 @@
 let xValid = false, yValid = false, rValid = false;
 
+const messages = document.getElementById('messages');
+
 // X radio validation
-const xInput = document.querySelector('input#X');
-const xRadioInputs = document.querySelectorAll('.form__x-col input');
+let xInput = document.getElementById('form:X');
+const xRadioInput = document.getElementById('xRadio');
+const xRadioInputs = xRadioInput.querySelectorAll('input');
 xRadioInputs.forEach(radio => {
     radio.addEventListener('input', () => {
         xInput.value = radio.value;
@@ -12,25 +15,16 @@ xRadioInputs.forEach(radio => {
 });
 
 // Y input field validation
-const yInput = document.querySelector('input#Y')
+let yInput = document.getElementById('form:Y');
 yInput.addEventListener('input', () => {
-    const validityState = yInput.validity;
-    yValid = false;
-    if (validityState.valueMissing) {
-        yInput.setCustomValidity('Поле не может быть пустым.');
-    } else if (validityState.rangeUnderflow || validityState.rangeOverflow) {
-        yInput.setCustomValidity('Значение должно находиться в отрезке [-5 ... 5].');
-    } else {
-        yValid = true;
-        yInput.setCustomValidity('');
-    }
-    yInput.reportValidity();
+    yValid = yInput.value.length > 0;
     toggleSubmitBtn();
 })
 
 // R buttons validation
-const rInput = document.querySelector('input#R');
-const rRadioInputs = document.querySelectorAll('.form__r-col input');
+let rInput = document.getElementById('form:R');
+const rRadioInput = document.getElementById('rRadio');
+const rRadioInputs = rRadioInput.querySelectorAll('input');
 rRadioInputs.forEach(radio => {
     radio.addEventListener('input', () => {
         rInput.value = radio.value;
@@ -40,25 +34,13 @@ rRadioInputs.forEach(radio => {
     })
 });
 
-const submitBtn = document.querySelector('.big-btn[type="submit"]');
+const submitBtn = document.getElementById('form:submitBtn');
 function toggleSubmitBtn() {
     // check X, Y, R validity
     submitBtn.disabled = !(xValid && yValid && rValid)
 }
 
-function formatParams(params) {
-    return "?" + Object
-        .keys(params)
-        .map(function (key) {
-            return key + "=" + encodeURIComponent(params[key])
-        })
-        .join("&")
-}
-
-// Clear all table data
-const clearBtn = document.querySelector('.big-btn[type="reset"]');
-clearBtn.addEventListener("click", e => {
-    e.preventDefault();
-    const params = {'clear': true}
-    window.location.replace("/lab3/process" + formatParams(params));
-})
+xInput.value = '';
+yInput.value = '';
+rInput.value = '';
+toggleSubmitBtn()

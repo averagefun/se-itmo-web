@@ -7,7 +7,7 @@ import java.util.List;
 public interface ResultDao {
     void save(Result result);
 
-    void clear();
+    boolean clear();
 
-//    List<Result> getAll();
+    List<Result> getAll();
 }

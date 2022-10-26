@@ -11,10 +11,9 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
         <properties>
             <!-- common properties -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.show_sql" value="true"/> <!-- Show SQL in console -->
             <property name="hibernate.format_sql" value="true"/> <!-- Show SQL formatted -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
             <!-- local -->
             <property name="javax.persistence.jdbc.user" value="postgres"/>

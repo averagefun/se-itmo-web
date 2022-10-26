@@ -1,206 +1,3 @@
-@charset "UTF-8";
-
-/* Media:
-1024px 850px 520px
-/*
-
-/*Import fonts*/
-
-@font-face {
-  font-family: "Lora";
-  font-display: swap;
-  src: url("#{resource['fonts/Lora-Regular.woff']}") format("woff"), url("#{resource['fonts/Lora-Regular.woff2']}") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Lora";
-  font-display: swap;
-  src: url("#{resource['fonts/Lora-Medium.woff']}") format("woff"), url("#{resource['fonts/Lora-Medium.woff2']}") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Lora";
-  font-display: swap;
-  src: url("#{resource['fonts/Lora-SemiBold.woff']}") format("woff"), url("#{resource['fonts/Lora-SemiBold.woff2']}") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Lora";
-  font-display: swap;
-  src: url("#{resource['fonts/Lora-Bold.woff']}") format("woff"), url("#{resource['fonts/Lora-Bold.woff2']}") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-display: swap;
-  src: url("#{resource['fonts/Roboto-Light.woff']}") format("woff"), url("#{resource['fonts/Roboto-Light.woff2']}") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-display: swap;
-  src: url("#{resource['fonts/Roboto-Regular.woff']}") format("woff"), url("#{resource['fonts/Roboto-Regular.woff2']}") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-display: swap;
-  src: url("#{resource['fonts/Roboto-Medium.woff']}") format("woff"), url("#{resource['fonts/Roboto-Medium.woff2']}") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-display: swap;
-  src: url("#{resource['fonts/Roboto-Bold.woff']}") format("woff"), url("#{resource['fonts/Roboto-Bold.woff2']}") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "RussoOne";
-  font-display: swap;
-  src: url("#{resource['fonts/RussoOne-Regular.woff']}") format("woff"), url("#{resource['fonts/RussoOne-Regular.woff2']}") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-/*Base styles*/
-
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-:focus,
-:active {
-  outline: none;
-}
-
-a:focus,
-a:active {
-  outline: none;
-}
-
-nav,
-footer,
-header,
-aside {
-  display: block;
-}
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-  line-height: 1;
-}
-
-input,
-button,
-textarea {
-  font-family: inherit;
-}
-
-button {
-  cursor: pointer;
-  background: none;
-}
-
-a,
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-ul li {
-  list-style: none;
-}
-
-img {
-  vertical-align: top;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-/* VARIABLES */
-html {
-  --myred: #f13a23;
-  --mygrey: #f5f5f5;
-  --myblack: #111;
-  --mygreen: rgb(99, 215, 41);
-}
-
-/*--------------------*/
-
-body {
-  font-family: "Roboto", sans-serif;
-  color: var(--myblack);
-  background: var(--mygrey);
-}
-
-body._lock {
-  overflow: hidden;
-}
-
-.wrapper {
-  min-height: 100vh;
-  display: grid;
-  grid-template: minmax(50px, auto) 1fr minmax(50px, auto)/1fr;
-  grid-template-areas: "header""main""footer";
-}
-
-.container {
-  box-sizing: content-box;
-  max-width: 80rem;
-  min-width: 300px;
-  padding: 0 0.9375rem;
-  margin: 0 auto;
-}
-
-a {
-  color: var(--myblack);
-  transition: color 0.2s ease-in;
-}
-
-a:hover,
-a:active,
-a:focus {
-  color: #f13a23;
-  transition: color 0.1s ease-out;
-}
-
 /*Header styles*/
 
 .header {
@@ -418,6 +215,10 @@ canvas#graph {
   max-width: 300px;
 }
 
+#messages {
+  color: var(--myred);
+}
+
 .form {
   width: 100%;
   max-width: 400px;
@@ -452,28 +253,15 @@ canvas#graph {
   accent-color: var(--myred);
 }
 
+.form__btn-row {
+  grid-column: 1/3;
+}
+
 .form__number-input {
   font-size: 1.1rem;
   background: var(--mygrey);
   width: 100%;
   padding-left: 7px;
-}
-
-.form__x-btn {
-  padding: 2px 5px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  background: var(--mygrey);
-  border: 1px solid var(--mygrey);
-}
-
-.form__x-btn:hover {
-  border: 1px solid var(--myblack);
-}
-
-.selected-btn {
-  background-color: #f13a23;
-  color: var(--mygrey);
 }
 
 .big-btn {

@@ -3,11 +3,11 @@ package beans;
 import database.ResultDao;
 import lombok.Data;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Data
 public class ResultBean implements Serializable {
@@ -16,7 +16,7 @@ public class ResultBean implements Serializable {
     private static final double MAX_Y = 5;
 
     @Inject
-    private ResultDao resultDaoImpl;
+    private ResultDao resultDao;
 
     private Result currResult;
     private List<Result> resultList;
@@ -24,13 +24,22 @@ public class ResultBean implements Serializable {
     @PostConstruct
     private void initialize() {
         currResult = new Result();
-        resultList = new ArrayList<>();
-//        resultList = resultDaoImpl.getAll();
+        updateLocal();
+    }
+
+    private void updateLocal() {
+        resultList = resultDao.getAll();
     }
 
     public void addResult() {
         Result copyResult = new Result(currResult);
-        resultList.add(copyResult);
-        resultDaoImpl.save(copyResult);
+        resultDao.save(copyResult);
+        updateLocal();
+    }
+
+    public void clearResults() {
+        resultDao.clear();
+        resultList = resultDao.getAll();
+        updateLocal();
     }
 }

@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/templates/templLayout.xhtml">
     <ui:define name="head">
@@ -18,10 +19,16 @@
                 <div class="main__left-block">
                     <canvas id="graph"/>
 
-                    <h:form class="form">
-                        <label class="form__label">X</label>
-                        <div class="form__row">
-                            <p:inputText id="X" type="hidden" name="x" value="#{results.currResult.x}"/>
+                    <p:messages id="messages" showSummary="false" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h:form id="form" styleClass="form">
+                        <label for="X" class="form__label">X</label>
+                        <div id="xRadio" class="form__row">
+                            <h:inputHidden id="X" name="x" value="#{results.currResult.x}">
+                                <f:validator validatorId="validatorX"/>
+                            </h:inputHidden>
                             <div class="form__x-col">
                                 <p><input id="x-m5" name="x" type="radio" value="-5"/></p>
                                 <label for="x-m5">-5</label>
@@ -62,15 +69,18 @@
 
                         <label for="Y" class="form__label">Y</label>
                         <div class="form__row">
-                            <p:inputText id="Y" required="required" class="form__number-input" name="y"
-                                   type="number" step="any" min="-5" max="5"
-                                   placeholder="Введите значение [-5 ... 5]"
-                                   value="#{results.currResult.y}"/>
+                            <p:inputText id="Y"
+                                    required="required" class="form__number-input" name="y" placeholder="Введите значение [-5 ... 5]"
+                                    type="number" value="#{results.currResult.y}">
+                                <f:validator validatorId="validatorY"/>
+                            </p:inputText>
                         </div>
 
                         <label class="form__label">R</label>
-                        <div class="form__row">
-                            <p:inputText id="R" type="hidden" name="x" value="#{results.currResult.r}"/>
+                        <div id="rRadio" class="form__row">
+                            <h:inputHidden id="R" name="r" value="#{results.currResult.r}">
+                                <f:validator validatorId="validatorR"/>
+                            </h:inputHidden>
                             <div class="form__r-col">
                                 <p><input id="r-1" name="r" type="radio" value="1"/></p>
                                 <label for="r-1">1.0</label>
@@ -93,29 +103,30 @@
                             </div>
                         </div>
 
-                        <div class="form__row">
-                            <p:commandButton styleClass="big-btn" type="submit" value="Отправить"
+                        <div class="form__row form__btn-row">
+                            <p:commandButton id="submitBtn" styleClass="big-btn" type="submit" value="Отправить"
                                              action="#{results.addResult}" update="results-table"/>
-                            <button class="big-btn" type="reset">Очистить</button>
+                            <p:commandButton id="clearBtn" styleClass="big-btn" value="Очистить"
+                                             action="#{results.clearResults}" immediate="true" update="results-table"/>
                         </div>
-
                     </h:form>
                 </div>
                 <div class="main__table-block">
-                    <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{results.resultList}">
-                        <p:column style="text-align: center;" headerText="X">
+                    <p:dataTable id="results-table" tableStyleClass="main__table" var="result" value="#{results.resultList}"
+                                 emptyMessage="">
+                        <p:column headerText="X">
                             <h:outputText value="#{result.x}" />
                         </p:column>
 
-                        <p:column style="text-align: center;" headerText="Y">
+                        <p:column headerText="Y">
                             <h:outputText value="#{result.y}" />
                         </p:column>
 
-                        <p:column style="text-align: center;" headerText="R">
+                        <p:column headerText="R">
                             <h:outputText value="#{result.r}" />
                         </p:column>
 
-                        <p:column style="text-align: center;" headerText="Результат">
+                        <p:column headerText="Результат">
                             <h:outputText styleClass="${result.classSuccess}" value="#{result.stringSuccess}" />
                         </p:column>
                     </p:dataTable>
