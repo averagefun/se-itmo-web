@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
 @Data
 public class ResultBean implements Serializable {

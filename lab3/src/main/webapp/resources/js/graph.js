@@ -115,6 +115,14 @@ function printDotOnGraph(xCenter, yCenter, isHit) {
     ctx.fillRect(x, y, 6, 6);
 }
 
+function updateDotOnGraphFromTable() {
+    const lastResult = document.querySelector('.main__table tbody tr:last-child');
+    if (lastResult.childNodes.length > 1) {
+        // noinspection JSUnresolvedVariable
+        printDotOnGraph(xInput.value, yInput.value, lastResult.children[3].firstChild.classList.contains('hit'));
+    }
+}
+
 canvas.addEventListener('click', (event) => {
     if (rValid) {
         // process click on graph
@@ -135,11 +143,6 @@ canvas.addEventListener('click', (event) => {
 
         xInput.value = oldX;
         yInput.value = oldY;
-
-        setTimeout(() => {
-            const lastResult = document.querySelector('.main__table tbody tr:last-child');
-            printDotOnGraph(xCenter, yCenter, lastResult.children[3].firstChild.classList.contains('hit'))
-        }, 100);
     } else {
         messages.innerText = "Ошибка: значение R не задано!";
     }

@@ -22,7 +22,7 @@ public class ValidatorY implements Validator {
         double yValue = Double.parseDouble(String.valueOf(o));
         if (yValue < MIN_Y || yValue > MAX_Y) throw new ValidatorException(
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, null,
-                        String.format("Значение Y должно находиться в отрезке [%s ... %s]!", MIN_Y, MAX_Y))
+                        String.format("Значение Y должно находиться в отрезке [%s ... %s].", MIN_Y, MAX_Y))
         );
     }
 }

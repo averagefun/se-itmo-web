@@ -105,9 +105,9 @@
 
                         <div class="form__row form__btn-row">
                             <p:commandButton id="submitBtn" styleClass="big-btn" type="submit" value="Отправить"
-                                             action="#{results.addResult}" update="results-table"/>
+                                             action="#{results.addResult}" update="results-table" oncomplete="updateDotOnGraphFromTable();"/>
                             <p:commandButton id="clearBtn" styleClass="big-btn" value="Очистить"
-                                             action="#{results.clearResults}" immediate="true" update="results-table"/>
+                                             action="#{results.clearResults}" immediate="true" update="results-table" oncomplete="updateDotOnGraphFromTable();"/>
                         </div>
                     </h:form>
                 </div>

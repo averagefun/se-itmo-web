@@ -20,9 +20,9 @@ public class ValidatorR implements Validator {
                             "Поле R не может быть пустым!"));
         }
         double yValue = Double.parseDouble(String.valueOf(o));
-        if (yValue <= MIN_R || yValue >= MAX_R) throw new ValidatorException(
+        if (yValue < MIN_R || yValue > MAX_R) throw new ValidatorException(
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, null,
-                        String.format("Значение X должно находиться в отрезке [%s ... %s]!", MIN_R, MAX_R))
+                        String.format("Значение X должно находиться в отрезке [%s ... %s].", MIN_R, MAX_R))
         );
     }
 }
