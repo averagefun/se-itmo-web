@@ -118,8 +118,9 @@ function printDotOnGraph(xCenter, yCenter, isHit) {
 function updateDotOnGraphFromTable() {
     const lastResult = document.querySelector('.main__table tbody tr:last-child');
     if (lastResult.childNodes.length > 1) {
+        const children = lastResult.children;
         // noinspection JSUnresolvedVariable
-        printDotOnGraph(xInput.value, yInput.value, lastResult.children[3].firstChild.classList.contains('hit'));
+        printDotOnGraph(children[0].innerHTML, children[1].innerHTML, children[3].firstChild.classList.contains('hit'));
     }
 }
 
