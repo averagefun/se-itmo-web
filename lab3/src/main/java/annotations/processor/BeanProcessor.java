@@ -6,11 +6,14 @@ import com.google.auto.service.AutoService;
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @AutoService(Processor.class)
@@ -75,7 +78,10 @@ public class BeanProcessor extends AbstractProcessor {
                     "The bean class %s must implements Serializable.", className);
         }
 
-        // todo: check for getters and setters
+        if (!isHaveGettersAndSetters(classElement)) {
+            throw new ProcessingException(classElement,
+                    "The bean class %s don't have appropriate getters or/and setters.", className);
+        }
     }
 
     private boolean isClassPublic(TypeElement classElement) {
@@ -92,7 +98,6 @@ public class BeanProcessor extends AbstractProcessor {
                 ExecutableElement constructorElement = (ExecutableElement) enclosed;
                 if (constructorElement.getParameters().size() == 0 && constructorElement.getModifiers()
                         .contains(Modifier.PUBLIC)) {
-                    // Found an empty public constructor
                     return true;
                 }
             }
@@ -103,6 +108,56 @@ public class BeanProcessor extends AbstractProcessor {
     private boolean isSerializable(TypeElement classElement) {
         TypeMirror serializable = elementUtils.getTypeElement("java.io.Serializable").asType();
         return typeUtils.isAssignable(classElement.asType(), serializable);
+    }
+
+    private String upperFirstLetter(String s) {
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+    private boolean isHaveGettersAndSetters(TypeElement classElement) throws ProcessingException {
+        List<VariableElement> properties = new ArrayList<>();
+        List<ExecutableElement> methods = new ArrayList<>();
+
+        for (Element enclosed: classElement.getEnclosedElements()) {
+            if (enclosed.getKind() == ElementKind.FIELD) {
+                properties.add((VariableElement) enclosed);
+            } else if (enclosed.getKind() == ElementKind.METHOD) {
+                methods.add((ExecutableElement) enclosed);
+            }
+        }
+
+        for (VariableElement property: properties) {
+            String getterPrefix = (property.asType().getKind() == TypeKind.BOOLEAN) ? "is" : "get";
+            String expectedGetterName = getterPrefix + upperFirstLetter(property.getSimpleName().toString());
+
+            String setterPrefix = "set";
+            String expectedSetterName = setterPrefix + upperFirstLetter(property.getSimpleName().toString());
+
+            boolean foundGetter = methods.stream().
+                    map(executableElement -> executableElement.getSimpleName().toString())
+                    .anyMatch(actualMethodName -> actualMethodName.equals(expectedGetterName));
+
+            boolean foundSetter = methods.stream().
+                    map(executableElement -> executableElement.getSimpleName().toString())
+                    .anyMatch(actualMethodName -> actualMethodName.equals(expectedSetterName));
+
+            if (!foundGetter || !foundSetter) {
+                String missingMethods;
+                if (!foundGetter && foundSetter) {
+                    missingMethods = "getter";
+                } else if (foundGetter) {
+                    missingMethods = "setter";
+                } else {
+                    missingMethods = "getter & setter";
+                }
+                throw new ProcessingException(classElement,
+                        "The property '%s' of bean class %s don't have appropriate %s.",
+                        property.getSimpleName().toString(),
+                        classElement.getQualifiedName().toString(),
+                        missingMethods);
+            }
+        }
+        return true;
     }
 
     @Override
