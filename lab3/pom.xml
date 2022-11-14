@@ -82,13 +82,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>annotations.processor.BeanProcessor</groupId>
-                            <artifactId>bean-processor</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
