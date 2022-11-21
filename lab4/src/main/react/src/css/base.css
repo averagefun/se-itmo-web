@@ -155,7 +155,7 @@ h6 {
 }
 
 /* VARIABLES */
-html {
+:root {
     --myred: #f13a23;
     --mygrey: #f5f5f5;
     --myblack: #111;

@@ -27,7 +27,6 @@
     color: #fff;
     background-image: none;
 
-    -o-transition: color 0.2s ease;
     transition: color 0.2s ease;
 }
 
@@ -44,7 +43,6 @@
     background-repeat: no-repeat;
     background-position: center bottom;
 
-    -o-transition: background-size 0.3s ease-out 0.1s;
     transition: background-size 0.3s ease-out 0.1s;
 }
 
@@ -53,6 +51,7 @@
 .header__title a:focus {
     color: var(--myblack);
     background-size: 100% 0.1875rem, auto;
+    transition: background-size 0.2s ease-out;
 }
 
 .menu__list {
@@ -65,7 +64,7 @@
     font-weight: 600;
 }
 
-@media screen and (max-width: var(--max-tablet)) {
+@media screen and (max-width: 1176px) {
     .menu__icon {
         display: block;
         z-index: 11;
