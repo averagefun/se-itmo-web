@@ -1,14 +1,21 @@
 package beans;
 
 import lombok.*;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.persistence.*;
+import org.hibernate.Hibernate;
+
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@Table(name = "result")
 public class Result implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,12 +30,24 @@ public class Result implements Serializable {
     @Column(name = "hit", nullable = false)
     private Boolean hit;
 
-    public Result(Result sourceResult) {
-        this.id = sourceResult.id;
-        this.x = sourceResult.getX();
-        this.y = sourceResult.getY();
-        this.r = sourceResult.getR();
+    @ManyToOne
+    @JoinColumn(name = "owner", referencedColumnName = "username")
+    private User owner;
+
+    public Result(Double x, Double y, Double r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
         this.hit = checkHit();
+    }
+
+    public JsonObject toJSONObject() {
+        return Json.createObjectBuilder()
+                .add("x", x)
+                .add("y", y)
+                .add("r", r)
+                .add("result", hit)
+                .build();
     }
 
     private boolean checkHit() {
@@ -38,11 +57,16 @@ public class Result implements Serializable {
         return circle || triangle || rectangle;
     }
 
-    public String getStringSuccess() {
-        return hit ? "Попадание" : "Промах";
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Result result = (Result) o;
+        return id != null && Objects.equals(id, result.id);
     }
 
-    public String getClassSuccess() {
-        return hit ? "hit" : "miss";
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
