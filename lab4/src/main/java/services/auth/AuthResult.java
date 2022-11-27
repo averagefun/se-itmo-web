@@ -2,7 +2,6 @@ package services.auth;
 
 import lombok.Getter;
 
-@SuppressWarnings("ClassCanBeRecord")
 @Getter
 public class AuthResult {
     private final String errorMessage;

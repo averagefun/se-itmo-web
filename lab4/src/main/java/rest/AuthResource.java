@@ -43,12 +43,6 @@ public class AuthResource {
         }
     }
 
-    @GET
-    @Path("/test")
-    public Response test() {
-        return Response.ok().build();
-    }
-
     private String tokenJSON(String token) {
         return Json.createObjectBuilder().add("token", token).build().toString();
     }

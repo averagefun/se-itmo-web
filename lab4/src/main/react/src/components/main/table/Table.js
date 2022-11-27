@@ -2,7 +2,6 @@ import React from 'react';
 import TableRow from "./TableRow";
 
 function Table({ resultList }) {
-
     return (
         <table className="main__table">
             <thead>

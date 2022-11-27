@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from "./form/Form";
+import AuthForm from "./form/AuthForm";
 
 // css styles
 import '../../css/general.css'
@@ -13,7 +13,8 @@ function Auth() {
 
                 <div className="main__row">
                     <div className="main__left-block">
-                        <Form />
+                        <AuthForm loginURL="http://localhost:8080/lab4/api/auth/login"
+                                  registerURL="http://localhost:8080/lab4/api/auth/register"/>
                     </div>
                 </div>
             </div>

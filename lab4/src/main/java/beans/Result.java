@@ -5,30 +5,28 @@ import lombok.*;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.persistence.*;
-import org.hibernate.Hibernate;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name = "result")
+@Table(name = "results")
 public class Result implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
     @Column(name = "x", nullable = false)
-    private Double x;
+    private double x;
     @Column(name = "y", nullable = false)
-    private Double y;
+    private double y;
     @Column(name = "r", nullable = false)
-    private Double r;
+    private double r;
     @Column(name = "hit", nullable = false)
-    private Boolean hit;
+    private boolean hit;
 
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "username")
@@ -46,7 +44,7 @@ public class Result implements Serializable {
                 .add("x", x)
                 .add("y", y)
                 .add("r", r)
-                .add("result", hit)
+                .add("hit", hit)
                 .build();
     }
 
@@ -55,18 +53,5 @@ public class Result implements Serializable {
         boolean triangle = (x >= 0) && (y >= 0) && (y <= r - 2 * x);
         boolean rectangle = (x >= 0) && (y <= 0) && (x <= r) && (y >= -r / 2);
         return circle || triangle || rectangle;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Result result = (Result) o;
-        return id != null && Objects.equals(id, result.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

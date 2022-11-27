@@ -37,9 +37,9 @@ public class MainResource {
         Result result = new Result(resultData.getX(), resultData.getY(), resultData.getR());
         try {
             resultService.add(result, username);
-            return Response.ok(jsonMessage("result added (owner is " + username + ")")).build();
+            return Response.ok(result.toJSONObject()).build();
         } catch (UserNotFoundException e) {
-            return Response.serverError().entity("User not found despite having a valid token").build();
+            return Response.serverError().entity("USER_NOT_FOUND").build();
         }
     }
 
@@ -50,6 +50,7 @@ public class MainResource {
         return Response.ok().build();
     }
 
+    @SuppressWarnings("unused")
     private String jsonMessage(String message) {
         return Json.createObjectBuilder().add("message", message).build().toString();
     }

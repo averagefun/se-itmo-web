@@ -9,6 +9,7 @@ class Canvas extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
+        this.r = props.rDefault;
     }
 
     render() {
@@ -36,24 +37,23 @@ class Canvas extends React.Component {
             canvasTop = this.canvas.offsetTop + this.canvas.clientTop;
 
         const x = event.pageX - canvasLeft,
-            y = event.pageY - canvasTop,
-            r = 3;
+            y = event.pageY - canvasTop;
 
-        const xCenter = Math.round((x - this.w / 2) / (Canvas.hatchGap * (2 / r)) * 1000) / 1000,
-            yCenter = Math.round((this.h / 2 - y) / (Canvas.hatchGap * (2 / r)) * 1000) / 1000;
+        const xCenter = Math.round((x - this.w / 2) / (Canvas.hatchGap * (2 / this.r)) * 1000) / 1000,
+            yCenter = Math.round((this.h / 2 - y) / (Canvas.hatchGap * (2 / this.r)) * 1000) / 1000;
 
-        this.printDotOnCanvas(xCenter, yCenter, r, true);
+        this.printDotOnCanvas(xCenter, yCenter, this.r, true);
     }
 
-    printDotOnCanvas(xCenter, yCenter, r, isHit) {
-        this.redrawCanvas(r);
+    printDotOnCanvas(xCenter, yCenter, isHit) {
+        this.redrawCanvas(this.r);
         this.ctx.fillStyle = isHit ? '#00ff00' : '#ff0000'
-        const x = this.w / 2 + xCenter * Canvas.hatchGap * (2 / r) - 3,
-            y = this.h / 2 - yCenter * Canvas.hatchGap * (2 / r) - 3;
+        const x = this.w / 2 + xCenter * Canvas.hatchGap * (2 / this.r) - 3,
+            y = this.h / 2 - yCenter * Canvas.hatchGap * (2 / this.r) - 3;
         this.ctx.fillRect(x, y, 6, 6);
     }
 
-    redrawCanvas(r) {
+    redrawCanvas() {
         this.ctx.clearRect(0, 0, this.w, this.h);
 
         this.ctx.lineWidth = 2;
@@ -132,12 +132,12 @@ class Canvas extends React.Component {
         this.ctx.fillText('x', this.w - 20, this.h / 2 - Canvas.hatchWidth * 2.4)
 
         let label1, label2;
-        if (isNaN(r)) {
-            label1 = r + '/2'
-            label2 = r
+        if (isNaN(this.r)) {
+            label1 = this.r + '/2'
+            label2 = this.r
         } else {
-            label1 = r / 2
-            label2 = r
+            label1 = this.r / 2
+            label2 = this.r
         }
 
         this.ctx.font = `800 ${fontSize}px Roboto`;

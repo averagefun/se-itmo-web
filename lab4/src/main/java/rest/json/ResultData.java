@@ -5,18 +5,19 @@ import lombok.Data;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
-import utils.validation.InArray;
 
 @Data
 public class ResultData {
-    @InArray(array = {-2.0, -1.5, -1.0, -0.5, 0, 0.5, 1.0, 1.5, 2.0}, message = "X_VALUE_NOT_ALLOWED")
-    @NotNull(message = "X_MUST_NOT_BE_NULL_OR_EMPTY")
-    private Double x;
-    @DecimalMax(value = "5", inclusive = false, message = "Y_VALUE_NOT_ALLOWED")
-    @DecimalMin(value = "3", inclusive = false, message = "Y_VALUE_NOT_ALLOWED")
-    @NotNull(message = "Y_MUST_NOT_BE_NULL_OR_EMPTY")
-    private Double y;
-    @InArray(array = {-2.0, -1.5, -1.0, -0.5, 0, 0.5, 1.0, 1.5, 2.0}, message = "R_VALUE_NOT_ALLOWED")
-    @NotNull(message = "R_MUST_NOT_BE_NULL_OR_EMPTY")
-    private Double r;
+    @DecimalMin(value = "-2", message = "X_VALUE_WRONG_RANGE")
+    @DecimalMax(value = "2", message = "X_VALUE_WRONG_RANGE")
+    @NotNull(message = "X_NULL_VALUE")
+    private double x;
+    @DecimalMin(value = "-5", message = "Y_VALUE_WRONG_RANGE")
+    @DecimalMax(value = "3", message = "Y_VALUE_WRONG_RANGE")
+    @NotNull(message = "Y_NULL_VALUE")
+    private double y;
+    @DecimalMin(value = "-2", message = "R_VALUE_WRONG_RANGE")
+    @DecimalMax(value = "2", message = "R_VALUE_WRONG_RANGE")
+    @NotNull(message = "R_NULL_VALUE")
+    private double r;
 }

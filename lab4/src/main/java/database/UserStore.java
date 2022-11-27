@@ -10,7 +10,7 @@ import java.util.Optional;
 @Stateless
 @Transactional
 public class UserStore {
-    @PersistenceContext
+    @PersistenceContext(unitName = "default")
     private EntityManager entityManager;
 
     public void save(User user) {
@@ -24,6 +24,7 @@ public class UserStore {
     }
 
     public boolean checkIfUserExists(String username) {
-        return findByUsername(username).isPresent();
+        User user = entityManager.find(User.class, username);
+        return user != null;
     }
 }

@@ -8,7 +8,7 @@ import javax.enterprise.inject.Default;
 
 @Default
 public class ResultDaoImplementation implements ResultDao {
-    private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ResultUnit");
+    private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
     private final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     @Override

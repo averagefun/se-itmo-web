@@ -6,7 +6,7 @@ function TableRow({ result }) {
             <td>{result.x}</td>
             <td>{result.y}</td>
             <td>{result.r}</td>
-            <td>{getHitSpan(result.isHit)}</td>
+            <td>{getHitSpan(result.hit)}</td>
         </tr>
     )
 }

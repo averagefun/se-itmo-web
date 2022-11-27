@@ -32,7 +32,7 @@ public class TokenFilter implements ContainerRequestFilter {
         Optional<String> token = getTokenFromContext(containerRequestContext);
 
         // check if token is present
-        if (token.isEmpty()) {
+        if (!token.isPresent()) {
             containerRequestContext.abortWith(
                     Response.status(FORBIDDEN).entity("MISSING_AUTHORIZATION_TOKEN").build()
             );
@@ -44,7 +44,7 @@ public class TokenFilter implements ContainerRequestFilter {
         Optional<String> usernameByToken = authService.getUsernameByToken(token.get());
 
         // if token missing or bad, respond with FORBIDDEN
-        if (usernameByToken.isEmpty()) {
+        if (!usernameByToken.isPresent()) {
             containerRequestContext.abortWith(
                     Response.status(FORBIDDEN).entity("INVALID_TOKEN").build()
             );
@@ -57,7 +57,9 @@ public class TokenFilter implements ContainerRequestFilter {
 
     private Optional<String> getTokenFromContext(@NotNull ContainerRequestContext containerRequestContext) {
         String authHeaderString = containerRequestContext.getHeaderString(AUTHORIZATION);
+//        return authHeaderString == null ?
+//                Optional.empty() : Optional.of(authHeaderString.substring(AUTHENTICATION_SCHEME.length()).trim());
         return authHeaderString == null ?
-                Optional.empty() : Optional.of(authHeaderString.substring(AUTHENTICATION_SCHEME.length()).trim());
+                Optional.empty() : Optional.of(authHeaderString.trim());
     }
 }
