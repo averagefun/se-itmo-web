@@ -1,4 +1,15 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {addResult} from "../../../store/resultTableSlice";
+
+const mapStateToProps = state => ({
+    xyrValues: state.xyrValues,
+    token: state.token
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addResult: (ownProps) => dispatch(addResult(ownProps))
+});
 
 class Canvas extends React.Component {
     static hatchWidth = 20 / 2;
@@ -9,17 +20,23 @@ class Canvas extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
-        this.r = props.rDefault;
+        this.TOKEN = this.props.token;
     }
 
     render() {
+        this.state = {
+            x: this.props.xyrValues.x.value,
+            y: this.props.xyrValues.y.value,
+            r: this.props.xyrValues.r.value
+        }
+
         return (
             <canvas width="300px" height="300px" onClick={event => this.clickCanvasCallback(event)}
                     ref={this.canvasRef}/>
         )
     }
 
-    // after render
+    // call after first render
     componentDidMount() {
         this.canvas = this.canvasRef.current;
 
@@ -27,8 +44,12 @@ class Canvas extends React.Component {
         this.w = this.canvas.width
         this.h = this.canvas.height;
 
-        // draw first time with 'R' label
-        this.redrawCanvas('R');
+        this.redrawCanvas();
+    }
+
+    // call after all renders
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.redrawCanvas();
     }
 
     clickCanvasCallback(event) {
@@ -39,17 +60,37 @@ class Canvas extends React.Component {
         const x = event.pageX - canvasLeft,
             y = event.pageY - canvasTop;
 
-        const xCenter = Math.round((x - this.w / 2) / (Canvas.hatchGap * (2 / this.r)) * 1000) / 1000,
-            yCenter = Math.round((this.h / 2 - y) / (Canvas.hatchGap * (2 / this.r)) * 1000) / 1000;
+        const xCenter = Math.round((x - this.w / 2) / (Canvas.hatchGap * (2 / this.state.r)) * 1000) / 1000,
+            yCenter = Math.round((this.h / 2 - y) / (Canvas.hatchGap * (2 / this.state.r)) * 1000) / 1000;
 
-        this.printDotOnCanvas(xCenter, yCenter, this.r, true);
+        fetch('http://localhost:8080/lab4/api/results', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'AUTHORIZATION': this.TOKEN
+            },
+            body: JSON.stringify({
+                x: xCenter,
+                y: yCenter,
+                r: this.state.r
+            })
+        }).then((res) => {
+            if (res.ok) {
+                return res
+                    .json()
+                    .then(newResult => {
+                        this.props.addResult(newResult);
+                        this.printDotOnCanvas(xCenter, yCenter, newResult.hit);
+                    })
+            }
+        })
     }
 
     printDotOnCanvas(xCenter, yCenter, isHit) {
-        this.redrawCanvas(this.r);
+        this.redrawCanvas(this.state.r);
         this.ctx.fillStyle = isHit ? '#00ff00' : '#ff0000'
-        const x = this.w / 2 + xCenter * Canvas.hatchGap * (2 / this.r) - 3,
-            y = this.h / 2 - yCenter * Canvas.hatchGap * (2 / this.r) - 3;
+        const x = this.w / 2 + xCenter * Canvas.hatchGap * (2 / this.state.r) - 3,
+            y = this.h / 2 - yCenter * Canvas.hatchGap * (2 / this.state.r) - 3;
         this.ctx.fillRect(x, y, 6, 6);
     }
 
@@ -132,12 +173,12 @@ class Canvas extends React.Component {
         this.ctx.fillText('x', this.w - 20, this.h / 2 - Canvas.hatchWidth * 2.4)
 
         let label1, label2;
-        if (isNaN(this.r)) {
-            label1 = this.r + '/2'
-            label2 = this.r
+        if (isNaN(this.state.r)) {
+            label1 = this.state.r + '/2'
+            label2 = this.state.r
         } else {
-            label1 = this.r / 2
-            label2 = this.r
+            label1 = this.state.r / 2
+            label2 = this.state.r
         }
 
         this.ctx.font = `800 ${fontSize}px Roboto`;
@@ -153,4 +194,4 @@ class Canvas extends React.Component {
     }
 }
 
-export default Canvas;
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas)

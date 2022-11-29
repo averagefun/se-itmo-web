@@ -1,46 +1,31 @@
 import React from 'react';
-import {useStateWithCallbackLazy} from 'use-state-with-callback';
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addResult, clearTable} from "../../../store/resultTableSlice";
 import {validateTextInput} from "../../../utils/validation";
 
 import ListBox from "./list_box/ListBox";
+import {updateValues} from "../../../store/xyrValuesSlice";
 
-const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIn0.WHU8XOkr5fjiLbDno2Q1gp_5bfZJPl_6bJMBNJeBHqBJ-WcLqoOENsWwuvOsj4yBPLtHMC6VK_BsEyvTl43FTg';
-
-function Form({rDefault}) {
+function Form() {
     const dispatch = useDispatch();
+    const {x, y, r} = useSelector(state => state.xyrValues);
+    const TOKEN = useSelector(state => state.token);
 
-    const xDefault = 0, yDefault = 0;
-    const [inputValues, setInputValues] = useStateWithCallbackLazy({
-        x: {value: xDefault, validity: true},
-        y: {value: yDefault, validity: false},
-        r: {value: rDefault, validity: true}
-    });
-
-    const [isSubmitAvailable, setSubmitAvailable] = React.useState(false);
-
-    function toggleSubmitButton(inputValues) {
-        if (inputValues.x.validity && inputValues.y.validity && inputValues.r.validity) {
-            setSubmitAvailable(true);
-        } else {
-            setSubmitAvailable(false);
-        }
-    }
+    const isSubmitAvailable = () => (x.validity && y.validity && r.validity);
 
     function validateInput(inputField) {
         const validityResult = validateTextInput(inputField);
 
-        setInputValues({...inputValues,
+        dispatch(updateValues({
             [inputField.name]: {value: parseFloat(inputField.value), validity: validityResult}
-        }, toggleSubmitButton);
+        }));
     }
 
     function validateListBoxItem(listBox) {
-        setInputValues({...inputValues,
+        dispatch(updateValues({
             [listBox.name]: {value: parseFloat(listBox.value), validity: true}
-        }, toggleSubmitButton);
+        }))
     }
 
     const submitHandler = (event) => {
@@ -53,9 +38,9 @@ function Form({rDefault}) {
                 'AUTHORIZATION': TOKEN
             },
             body: JSON.stringify({
-                x: inputValues.x.value,
-                y: inputValues.y.value,
-                r: inputValues.r.value
+                x: x.value,
+                y: y.value,
+                r: r.value
             })
         }).then((res) => {
             if (res.ok) {
@@ -92,7 +77,7 @@ function Form({rDefault}) {
             <div className="form__row">
                 <ListBox name="x"
                          items={generateItems(-2, 2, 0.5)}
-                         selected={xDefault}
+                         selected={0}
                          onInput={event => validateListBoxItem(event.target)}/>
             </div>
 
@@ -107,14 +92,14 @@ function Form({rDefault}) {
 
             <label className="form__label">R</label>
             <div className="form__row">
-                <ListBox name="r" items={generateItems(-2, 2, 0.5)}
-                         selected={rDefault}
+                <ListBox name="r" items={generateItems(0.5, 2, 0.5)}
+                         selected={r.value}
                          onInput={event => validateListBoxItem(event.target)}/>
             </div>
 
             <div className="form__row">
                 <button className="form__big-btn" type="submit"
-                        disabled={!isSubmitAvailable}
+                        disabled={!isSubmitAvailable()}
                         onClick={event => submitHandler(event)}>Отправить</button>
                 <button className="form__big-btn" type="reset"
                         onClick={event => clearHandler(event)}>Очистить</button>

@@ -10,11 +10,11 @@ import '../../css/general.css'
 import '../../css/main.css'
 import {updateTable} from "../../store/resultTableSlice";
 
-const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIn0.WHU8XOkr5fjiLbDno2Q1gp_5bfZJPl_6bJMBNJeBHqBJ-WcLqoOENsWwuvOsj4yBPLtHMC6VK_BsEyvTl43FTg';
 let isInitialize = false
 
 function Main() {
     const dispatch = useDispatch();
+    const TOKEN = useSelector(state => state.token);
 
     const getResultData = () => {
         return fetch('http://localhost:8080/lab4/api/results', {
@@ -34,6 +34,8 @@ function Main() {
         isInitialize = true;
     }
 
+    const resultList = useSelector(state => state.resultTable);
+
     return (
         <main className="main">
             <div className="container">
@@ -41,12 +43,12 @@ function Main() {
 
                 <div className="main__row">
                     <div className="main__left-block">
-                        <Canvas rDefault={1}/>
-                        <Form rDefault={1}/>
+                        <Canvas/>
+                        <Form/>
                     </div>
 
                     <div className="main__table-block">
-                        <Table resultList={useSelector(state => state.resultTable)} />
+                        <Table resultList={resultList}/>
                     </div>
                 </div>
             </div>

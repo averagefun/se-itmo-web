@@ -16,7 +16,7 @@ public class ResultData {
     @DecimalMax(value = "3", message = "Y_VALUE_WRONG_RANGE")
     @NotNull(message = "Y_NULL_VALUE")
     private double y;
-    @DecimalMin(value = "-2", message = "R_VALUE_WRONG_RANGE")
+    @DecimalMin(value = "0.5", message = "R_VALUE_WRONG_RANGE")
     @DecimalMax(value = "2", message = "R_VALUE_WRONG_RANGE")
     @NotNull(message = "R_NULL_VALUE")
     private double r;
