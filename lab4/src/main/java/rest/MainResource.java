@@ -39,7 +39,7 @@ public class MainResource {
             resultService.add(result, username);
             return Response.ok(result.toJSONObject()).build();
         } catch (UserNotFoundException e) {
-            return Response.serverError().entity("USER_NOT_FOUND").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("USER_NOT_FOUND").build();
         }
     }
 
