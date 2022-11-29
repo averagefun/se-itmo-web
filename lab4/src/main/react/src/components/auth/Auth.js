@@ -13,8 +13,7 @@ function Auth() {
 
                 <div className="main__row">
                     <div className="main__left-block">
-                        <AuthForm loginURL="http://localhost:8080/lab4/api/auth/login"
-                                  registerURL="http://localhost:8080/lab4/api/auth/register"/>
+                        <AuthForm/>
                     </div>
                 </div>
             </div>

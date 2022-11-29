@@ -2,14 +2,23 @@ import React from 'react';
 
 // css styles
 import '../../css/header.css'
+import {useNavigate} from 'react-router-dom';
 
 function Header() {
+    const navigate = useNavigate();
+
+    const logoutHandler = (event) => {
+        event.preventDefault();
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    }
+
     return (
         <header className="header">
             <div className="container">
                 <div className="header__row">
                     <div className="header__title">
-                        <a href="">Andrew B, P32081</a>
+                        <a href="#">Andrew B, P32081</a>
                     </div>
                     <div className="header__menu menu">
                         <div className="menu__icon" onClick={event => menuIconClickCallback(event.target)}>
@@ -18,10 +27,7 @@ function Header() {
                         <div className="menu__body">
                             <ul className="menu__list">
                                 <li className="menu__item">
-                                    <a href="#">Auth</a>
-                                </li>
-                                <li className="menu__item">
-                                    <a href="#">Main</a>
+                                    <a href="#" onClick={event => logoutHandler(event)}>Logout</a>
                                 </li>
                                 <li className="menu__item">
                                     <a href="https://github.com/averagefun/ITMO-WEB-LABS.git"

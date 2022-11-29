@@ -1,4 +1,4 @@
-.form {
+.form.form-auth {
     grid-template-columns: 75px 1fr;
 }
 
@@ -7,4 +7,12 @@
     font-weight: 500;
     margin-right: 10px;
     align-self: center;
+}
+
+.auth-message.success {
+    color: var(--mygreen);
+}
+
+.auth-message.failed {
+    color: var(--myred);
 }

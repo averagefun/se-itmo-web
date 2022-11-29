@@ -6,7 +6,6 @@ import Form from "./form/Form";
 import Table from "./table/Table";
 
 // css styles
-import '../../css/general.css'
 import '../../css/main.css'
 import {updateTable} from "../../store/resultTableSlice";
 
