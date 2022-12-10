@@ -6,13 +6,10 @@ import annotations.Table;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import entities.User;
 import fastcgi.client.FCGIClient;
 import fastcgi.response.FCGIResponse;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -88,10 +85,7 @@ public class MyEntityManager implements EntityManager {
         String content = genJsonBody("persist", new Gson().toJsonTree(obj), obj.getClass());
         FCGIResponse fcgiResponse = fcgiClient.request(genParams(content.length()), content);
 
-        Type responseType = TypeToken.getParameterized(Response.class, String.class).getType();
-        Response<String> response = new Gson().fromJson(new String(fcgiResponse.getResponseContent()), responseType);
-
-        return response.isSuccess();
+        return new Gson().fromJson(new String(fcgiResponse.getResponseContent()), boolean.class);
     }
 
     @Override
@@ -99,9 +93,6 @@ public class MyEntityManager implements EntityManager {
         String content = genJsonBody("find", key, clazz);
         FCGIResponse fcgiResponse = fcgiClient.request(genParams(content.length()), content);
 
-        Type responseType = TypeToken.getParameterized(Response.class, clazz).getType();
-        Response<T> response = new Gson().fromJson(new String(fcgiResponse.getResponseContent()), responseType);
-
-        return response.isSuccess() ? response.getBody() : null;
+        return new Gson().fromJson(new String(fcgiResponse.getResponseContent()), clazz);
     }
 }

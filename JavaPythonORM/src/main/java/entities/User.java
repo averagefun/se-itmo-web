@@ -41,6 +41,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User: " + name;
+        return "User: " + name + ", Password: " + getPassword();
     }
 }

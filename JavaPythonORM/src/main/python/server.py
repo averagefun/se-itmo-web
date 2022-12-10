@@ -16,7 +16,6 @@ class MyHandler(FcgiHandler):
         # noinspection PyAttributeOutsideInit
         self.db = Database(hostname='', database='postgres',
                            username='postgres', password='')
-        print('connected')
 
     def handle(self):
         print('REQUEST:')
@@ -38,26 +37,19 @@ class MyHandler(FcgiHandler):
         primary_key_value = body['actionBody']
         table_name = obj_mapping['tableName']
 
-        response = {
-            'success': False,
-            'body': None
-        }
-
         if action == 'find':
             results = self.db.fetchall(f"SELECT * FROM {table_name} WHERE {primary_key_column} = %s",
-                                           primary_key_value)
+                                       primary_key_value)
             if not results:
-                return response
+                return None
             result = results[0]
 
             response_obj = {}
             for tableColumn in result:
                 entity_key = list(obj_mapping['class'].keys())[list(obj_mapping['class'].values()).index(tableColumn)]
                 response_obj[entity_key] = result[tableColumn]
+            return response_obj
 
-            response['success'] = True
-            response['body'] = response_obj
-            return response
         elif action == 'persist':
             column_value = dict()
             for key in body['actionBody']:
@@ -67,12 +59,14 @@ class MyHandler(FcgiHandler):
             columns = ', '.join([key for key in column_value.keys()])
             values = [value for value in column_value.values()]
             subs = ', '.join(['%s'] * len(values))
+
             try:
                 self.db.update(f"INSERT INTO {table_name} ({columns}) VALUES ({subs})", values)
-                response['success'] = True
-            finally:
-                return response
-        return response
+                return True
+            except Exception as e:
+                print(e)
+                return False
+        return False
 
 
 with TCPServer((HOST, PORT), MyHandler) as srv:
